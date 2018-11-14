@@ -8,13 +8,15 @@ $(document).ready(function() {
   // }
   // createTrivia();
 
-  function createGiph(e) {
-    e.preventDefault();
+  function createGiph(event) {
+    event.preventDefault();
 
     // get user content
     const userSearch = $('#searchText').val(); // Example: dog
 
     const baseUrl = 'http://api.giphy.com/v1/gifs/search';
+
+    // config apiKey stored separately
     const queryStringforRequest = {
       q: userSearch,
       api_key: config.apiKey
@@ -48,7 +50,8 @@ $(document).ready(function() {
   $('#searchButton').on('click', createGiph);
 
   // event listen for remove images
-  $('#removeButton').on('click', function() {
+  $('#removeButton').on('click', function(event) {
+    event.preventDefault();
     $('#picContainer').empty();
   });
 });
