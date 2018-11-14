@@ -1,0 +1,54 @@
+$(document).ready(function() {
+  // function createTrivia() {
+  //   $.get('http://numbersapi.com/7/trivia', function(result) {
+  //     $('<p>')
+  //       .text(result)
+  //       .appendTo($('#numberFact'));
+  //   });
+  // }
+  // createTrivia();
+
+  function createGiph(e) {
+    e.preventDefault();
+
+    // get user content
+    const userSearch = $('#searchText').val(); // Example: dog
+
+    const baseUrl = 'http://api.giphy.com/v1/gifs/search';
+    const queryStringforRequest = {
+      q: userSearch,
+      api_key: config.apiKey
+    };
+
+    // get image from Giphy and add to DOM
+    $.getJSON(baseUrl, queryStringforRequest, function(result) {
+      // do nothing if there are no results
+      if (result.data.length === 0) {
+        return;
+      }
+
+      // grab Random Img from Results and append to DOM
+      const randomImgIdx = Math.floor(Math.random() * result.data.length);
+      const gifurl = result.data[randomImgIdx].images.fixed_width.url;
+      $('#picContainer').append(
+        $('<div>')
+          .addClass('col-3')
+          .append(
+            $('<img>')
+              .attr('src', gifurl)
+              .addClass('pl-3 pr-3 py-2 img-responsive')
+          )
+      );
+
+      // clear user input
+      $('#searchText').val('');
+    });
+  }
+  // event listener for search giphy search
+  $('#searchButton').on('click', createGiph);
+
+  // event listen for remove images
+  $('#removeButton').on('click', function() {
+    $('#picContainer').empty();
+  });
+});
