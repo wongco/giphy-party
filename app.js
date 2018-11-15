@@ -1,13 +1,4 @@
 $(document).ready(function() {
-  // function createTrivia() {
-  //   $.get('http://numbersapi.com/7/trivia', function(result) {
-  //     $('<p>')
-  //       .text(result)
-  //       .appendTo($('#numberFact'));
-  //   });
-  // }
-  // createTrivia();
-
   function createGiph(event) {
     event.preventDefault();
 
